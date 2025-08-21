@@ -1,18 +1,20 @@
-server:
-  port: 8080
-
 spring:
+  application:
+    name: COW-MATCHING-BE
   datasource:
-    url: jdbc:mysql://localhost:3306/cow?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
-    username: root            # 너 환경에 맞게
-    password: yourpass        # 너 환경에 맞게
+    url: jdbc:mysql://localhost:3307/cow?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
+    username: appuser
+    password: apppass
   jpa:
     hibernate:
-      ddl-auto: validate      # 개발초기엔 update도 OK
+      ddl-auto: update   # 개발 중엔 update 추천, 운영 땐 validate
     properties:
-      hibernate.format_sql: true
-      hibernate.show_sql: true
-      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
   flyway:
     enabled: true
-    locations: classpath:db/migrationa
+    locations: classpath:db/migration
+server:
+  port: 8080
