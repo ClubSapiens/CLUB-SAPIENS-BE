@@ -6,6 +6,6 @@ import lombok.*;
 @Entity @Table(name="stats")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Stats {
-    @Id private Integer id;
+    @Id private Long id;
     @Column(name="match_count", nullable=false) private Integer matchCount;
 }
