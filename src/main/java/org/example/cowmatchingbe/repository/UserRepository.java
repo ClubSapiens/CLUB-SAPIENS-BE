@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepository extends JpaRepository<User, Long> {
     //DB 접근 로직 (쿼리메서드) 필요시 기입.
     //오직 데이터베이스 조회/저장/수정/삭제만 책임짐.
+    long countByGender(String gender); //
 }
 
 //일반적으로 레포지토리는 서비스에서 접근해야하기때문에 접근 지정자는 public
