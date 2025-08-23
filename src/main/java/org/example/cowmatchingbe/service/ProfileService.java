@@ -48,4 +48,14 @@ public class ProfileService {
         var pageIds = ids.subList(offset, end);
         return profileRepository.findByUserIdInOrderByUserIdAsc(pageIds);
     }
+
+    //ProfileController가 받을 값 검증 + 레포지토리 호출.
+    public List<Profile> getByGender(String gender, int offset, int limit){
+        if(offset <0) offset=0; //값이 존재하지 않을 경우?
+        if (limit <= 0 || limit > 100) limit = 10;
+
+        String gen = (gender ==null || gender.isBlank()) ? null : gender.toLowerCase();
+
+        return profileRepository.findByGenderWithPaging(gen,offset,limit);
+    }
 }

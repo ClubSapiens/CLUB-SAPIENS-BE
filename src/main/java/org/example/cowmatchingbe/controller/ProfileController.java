@@ -34,4 +34,14 @@ public class ProfileController {
     ) {
         return ResponseEntity.ok(profileService.getProfilesPage(gender, offset, limit));
     }
+
+    @GetMapping
+    public ResponseEntity<List<Profile>> list(
+            @RequestParam(required = false) String gender,
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "10") int limit
+    ) {
+        List<Profile> result = profileService.getByGender(gender, offset, limit);
+        return ResponseEntity.ok(result);
+    }
 }
