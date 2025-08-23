@@ -3,8 +3,10 @@ package org.example.cowmatchingbe.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.cowmatchingbe.domain.Match;
+import org.example.cowmatchingbe.domain.Profile;
 import org.example.cowmatchingbe.domain.Stats;
 import org.example.cowmatchingbe.repository.MatchRepository;
+import org.example.cowmatchingbe.repository.ProfileRepository;
 import org.example.cowmatchingbe.repository.StatsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ public class MatchService {
     private final StatsRepository statsRepository;
     private final UserService userService;
     private final StatsService statsService; //유저별 통계
+    private final ProfileRepository profileRepository;
 
     /** 매칭 생성: 중복 방지 + 본인 check_num 증가 + stats.match_count 증가(트랜잭션) */
     @Transactional
@@ -42,5 +45,14 @@ public class MatchService {
     /** 내가 매칭한 목록 */
     public List<Match> my(Long userId) {
         return matchRepository.findByUserIdOrderByCreatedAtDesc(userId);
+    }
+    public List<Match> myMatches(Long userId) {
+        return matchRepository.findByUserIdOrderByCreatedAtDesc(userId);
+    }
+
+    public List<Profile> myMatchedProfiles(Long userId) {
+        List<Long> ids = matchRepository.findTargetIdsByUserId(userId);
+        if (ids.isEmpty()) return List.of();
+        return profileRepository.findByUserIdInOrderByUserIdAsc(ids);
     }
 }

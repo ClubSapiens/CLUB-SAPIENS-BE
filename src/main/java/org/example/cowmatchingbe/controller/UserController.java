@@ -1,5 +1,6 @@
 package org.example.cowmatchingbe.controller;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.example.cowmatchingbe.domain.User;
 import org.example.cowmatchingbe.service.UserService;
@@ -39,4 +40,10 @@ public class UserController {
         userService.increaseCheckNum(id);
         return ResponseEntity.noContent().build();
     }
+    /** check_num 조회 */
+    @GetMapping("/{id}/checknum")
+    public ResponseEntity<Integer> getCheckNum(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getCheckNum(id));
+    }
+
 }

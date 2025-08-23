@@ -31,6 +31,7 @@ public class UserService {
                 ));
     }
 
+
     /** 로그인: 존재하면 이름 업데이트, 없으면 생성 */
     @Transactional
     public User login(Long id, String name) {
@@ -46,6 +47,7 @@ public class UserService {
                 .orElse(0);
     }
 
+
     /** 본인 check_num +1 */
     @Transactional
     public void increaseCheckNum(Long id) {
@@ -53,4 +55,6 @@ public class UserService {
             Integer c = u.getCheckNum();
             u.setCheckNum((c == null ? 0 : c) + 1);
         });
-    }}
+    }
+}
+

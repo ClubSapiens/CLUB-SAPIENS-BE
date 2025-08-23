@@ -2,6 +2,7 @@ package org.example.cowmatchingbe.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.cowmatchingbe.domain.Match;
+import org.example.cowmatchingbe.domain.Profile;
 import org.example.cowmatchingbe.service.MatchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,4 +30,9 @@ public class MatchController {
     public ResponseEntity<List<Match>> my(@RequestParam Long userId) {
         return ResponseEntity.ok(matchService.my(userId));
     }
+    @GetMapping("/my/profiles")
+    public ResponseEntity<List<Profile>> myProfiles(@RequestParam Long userId) {
+        return ResponseEntity.ok(matchService.myMatchedProfiles(userId));
+    }
+
 }
