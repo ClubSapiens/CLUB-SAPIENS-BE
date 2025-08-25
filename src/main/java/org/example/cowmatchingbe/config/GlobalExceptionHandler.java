@@ -8,9 +8,11 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.OffsetDateTime;
 import java.util.Map;
+
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -76,5 +78,11 @@ public class GlobalExceptionHandler {
         ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(problem(HttpStatus.INTERNAL_SERVER_ERROR, "서버 오류가 발생했습니다.", req));
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ProblemDetail> noResource(NoResourceFoundException ex, HttpServletRequest req) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(problem(HttpStatus.NOT_FOUND, "리소스를 찾을 수 없습니다.", req));
     }
 }
