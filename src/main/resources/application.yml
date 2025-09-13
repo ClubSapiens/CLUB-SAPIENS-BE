@@ -2,9 +2,10 @@ spring:
   application:
     name: COW-MATCHING-BE
   datasource:
-    url: jdbc:mysql://cow-campus-connect-db.crcqiwiigu2b.ap-northeast-2.rds.amazonaws.com:3306/cow_app?sslMode=REQUIRED&serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://localhost:13306/cow_app?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
     username: frizsbeen
     password: Www001009!
+    driver-class-name: com.mysql.cj.jdbc.Driver   # driver 명시
     hikari:
       maximum-pool-size: 8
       minimum-idle: 2
