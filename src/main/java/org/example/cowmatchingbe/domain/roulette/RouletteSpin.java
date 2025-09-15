@@ -1,23 +1,45 @@
 package org.example.cowmatchingbe.domain.roulette;
+
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.cowmatchingbe.domain.User;
 
-import java.security.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
-// domain/roulette/RouletteSpin.java
-@Entity @Table(name="roulette_spins")
+
+@Entity
+@Table(name="roulette_spins")
 @Getter @Setter @NoArgsConstructor
 public class RouletteSpin {
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false) private Long userId;    // FK(users.id)
-    private Long prizeId;                           // 꽝이면 null
-    @Column(nullable=false) private Integer won = 0; // 1 당첨, 0 꽝
+    @Column(nullable=false)
+    private Long userId;    // FK(users.id)
+
+    private Long prizeId;   // 꽝이면 null
+
+    @Column(nullable=false)
+    private Boolean won = false;  // true=당첨, false=꽝
+
     private String ip;
     private String ua;
 
     @Column(nullable=false, updatable=false)
-    private Instant createdAt = Instant.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    public RouletteSpin(Long userId, Long prizeId, Boolean won) {
+        this.userId = userId;
+        this.prizeId = prizeId;
+        this.won = won;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    //연관관계의 주인인 RouleteeSpin쪽이 JoinColumn 담당
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prize_id")
+    private Prize prize;
 }

@@ -3,7 +3,7 @@ package org.example.cowmatchingbe.domain.roulette;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.security.Timestamp;
+
 import java.time.LocalDateTime;
 
 // domain/roulette/RouletteStatus.java
@@ -17,12 +17,18 @@ public class RouletteStatus {
     private Long userId;             // PK = FK(users.id)
     @Column(nullable=false) private Integer attemptsLeft = 2;
     private LocalDateTime lastSpinAt;
-    @Column(insertable=false, updatable=false) private Timestamp createdAt;
-    @Column(insertable=false, updatable=false) private Timestamp updatedAt;
+    @Column(insertable=false, updatable=false) private LocalDateTime createdAt;
+    @Column(insertable=false, updatable=false) private LocalDateTime updatedAt;
 
     public RouletteStatus(Long userId, Integer attemptsLeft, LocalDateTime lastSpinAt) {
         this.userId = userId;
         this.attemptsLeft = attemptsLeft;
         this.lastSpinAt = lastSpinAt;
+    }
+    // domain/roulette/RouletteStatus.java
+    public RouletteStatus(Long userId, Integer attemptsLeft) {
+        this.userId = userId;
+        this.attemptsLeft = attemptsLeft;
+        this.lastSpinAt = null;
     }
 }
