@@ -1,14 +1,24 @@
 package org.example.cowmatchingbe.dto.roulette;
 
-// 스핀 결과를 프론트가 알기 쉽게
 public record SpinResponse(
-        boolean success,     // 성공/실패
-        Long prizeId,        // 당첨 경품 id (꽝이면 null)
-        String prizeCode,    // 예: "STARBUCKS_AMERICANO" (꽝이면 "LOSER" or null)
-        String prizeName,    // 예: "스타벅스 아메리카노" (꽝이면 "꽝")
-        Integer attemptsLeft // 이번 스핀 이후 남은 시도 횟수
+        boolean success,
+        Long prizeId,
+        String prizeCode,
+        String prizeName,
+        Integer attemptsLeft
 ) {
+    // 꽝일 때
     public static SpinResponse loser(int attemptsLeft) {
         return new SpinResponse(true, null, "LOSER", "꽝", attemptsLeft);
+    }
+
+    // 당첨일 때
+    public static SpinResponse winner(Long prizeId, String prizeCode, String prizeName, int attemptsLeft) {
+        return new SpinResponse(true, prizeId, prizeCode, prizeName, attemptsLeft);
+    }
+
+    // 실패 케이스도 명확히 하고 싶으면
+    public static SpinResponse fail(String reason, int attemptsLeft) {
+        return new SpinResponse(false, null, reason, "실패", attemptsLeft);
     }
 }
