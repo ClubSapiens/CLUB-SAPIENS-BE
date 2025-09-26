@@ -58,4 +58,10 @@ public class RouletteService {
 
         return true;
     }
+
+//    유저의 스핀 내역 조회
+    @Transactional
+    public List<RouletteSpin> getUserSpins(Long userId){
+        return spinRepository.findByUserIdOrderByCreatedAtDesc(userId);
+    }
 }
