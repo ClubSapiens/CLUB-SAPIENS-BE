@@ -5,6 +5,8 @@ import org.example.cowmatchingbe.service.MetricsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class MetricsController {
 
 
     @GetMapping("/api/metrics/users/count")
-    public long getUsersCount() {
-        return metricsService.getTotalUsers(); // 123
+    public Map<String, Long> getUsersCount() {
+        return Map.of("count", metricsService.getTotalUsers());
     }
 }

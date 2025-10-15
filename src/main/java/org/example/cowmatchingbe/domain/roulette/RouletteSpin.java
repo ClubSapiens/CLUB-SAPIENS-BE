@@ -10,21 +10,22 @@ import java.time.LocalDateTime;
 @Table(name="roulette_spins")
 @Getter @Setter @NoArgsConstructor
 public class RouletteSpin {
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private Long userId;    // FK(users.id)
 
-    private Long prizeId;   // 꽝이면 null
+    @Column(name = "prize_id") private Long prizeId; // 꽝이면 null
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private Boolean won = false;  // true=당첨, false=꽝
 
     private String ip;
     private String ua;
 
-    @Column(nullable=false, updatable=false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public RouletteSpin(Long userId, Long prizeId, Boolean won) {
@@ -34,12 +35,4 @@ public class RouletteSpin {
         this.createdAt = LocalDateTime.now();
     }
 
-    //연관관계의 주인인 RouleteeSpin쪽이 JoinColumn 담당
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "prize_id")
-    private Prize prize;
 }

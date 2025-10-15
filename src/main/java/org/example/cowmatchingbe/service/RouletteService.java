@@ -64,4 +64,8 @@ public class RouletteService {
     public List<RouletteSpin> getUserSpins(Long userId){
         return spinRepository.findByUserIdOrderByCreatedAtDesc(userId);
     }
+
+    public List<Prize> getPrizes() {
+        return getActivePrizes();
+    }
 }

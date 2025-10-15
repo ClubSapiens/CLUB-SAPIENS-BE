@@ -34,6 +34,8 @@ public class UserController {
         return ResponseEntity.ok(userService.exists(id));
     }
 
+
+
     /** check_num +1 */
     @PostMapping("/{id}/checknum/increase")
     public ResponseEntity<Void> increase(@PathVariable Long id) {

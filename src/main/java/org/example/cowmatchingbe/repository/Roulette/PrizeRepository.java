@@ -12,10 +12,10 @@ import java.util.List;
 public interface PrizeRepository extends JpaRepository<Prize, Long> {
 
     @Query("""
-              select p from Prize p
-              where p.isActive = true and (p.isLoser = true or p.stock > 0)
-              order by p.displayOrder asc, p.id asc
-            """)
+        select p from Prize p
+        where p.active = true and (p.loser = true or p.stock > 0)
+        order by p.displayOrder asc, p.id asc
+""")
     List<Prize> findActiveCandidates();
 
     @Modifying

@@ -20,15 +20,9 @@ public class RouletteStatus {
     @Column(insertable=false, updatable=false) private LocalDateTime createdAt;
     @Column(insertable=false, updatable=false) private LocalDateTime updatedAt;
 
-    public RouletteStatus(Long userId, Integer attemptsLeft, LocalDateTime lastSpinAt) {
-        this.userId = userId;
-        this.attemptsLeft = attemptsLeft;
-        this.lastSpinAt = lastSpinAt;
-    }
-    // domain/roulette/RouletteStatus.java
     public RouletteStatus(Long userId, Integer attemptsLeft) {
         this.userId = userId;
         this.attemptsLeft = attemptsLeft;
-        this.lastSpinAt = null;
     }
+
 }

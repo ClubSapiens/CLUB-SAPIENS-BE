@@ -1,27 +1,40 @@
 package org.example.cowmatchingbe.domain.roulette;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.security.Timestamp;
-
-@Entity @Table(name="prizes")
-@Getter @Setter @NoArgsConstructor
+@Entity
+@Getter
+@Setter
+@Table(name = "prizes")
 public class Prize {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true, length=64) private String code;
-    @Column(nullable=false, length=100) private String name;
-    @Column(length=255) private String description;
+    @Column(length = 64, unique = true)
+    private String code;
 
-    @Column(nullable=false) private Integer weight = 1; // 가중치
-    @Column(nullable=false) private Integer stock  = 0; // 재고
-    @Column(length=16) private String color;
-    @Column(nullable=false) private Integer displayOrder = 0;
-    @Column(nullable=false) private Boolean isActive = true;
-    @Column(nullable=false) private Boolean isLoser  = false;
+    @Column(nullable = false, length = 100)
+    private String name;
 
-    @Column(insertable=false, updatable=false) private Timestamp createdAt;
-    @Column(insertable=false, updatable=false) private Timestamp updatedAt;
+    private String description;
+
+    @Column(nullable = false)
+    private int weight;
+
+    @Column(nullable = false)
+    private int stock;
+
+    private String color;
+
+    @Column(name = "display_order", nullable = false)
+    private int displayOrder;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean active;
+
+    @Column(name = "is_loser", nullable = false)
+    private boolean loser;
 }

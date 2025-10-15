@@ -12,8 +12,8 @@ public record PrizeDto(
         Integer stock,
         String color,
         Integer displayOrder,
-        Boolean isActive,
-        Boolean isLoser
+        Boolean active,
+        Boolean loser
 ) {
     // 엔티티 → DTO로 변환하는 팩토리 메서드
     public static PrizeDto from(Prize p) {
@@ -26,8 +26,8 @@ public record PrizeDto(
                 p.getStock(),
                 p.getColor(),
                 p.getDisplayOrder(),
-                p.getIsActive(),
-                p.getIsLoser()
+                p.isActive(),
+                p.isLoser()
         );
     }
 }
